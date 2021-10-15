@@ -10,6 +10,22 @@ import "../styles/index.scss";
 
 //import your own components
 import Home from "./component/home.jsx";
+import SecondsCounter from "./component/secondscounter.jsx";
 
-//render your react application
-ReactDOM.render(<Home />, document.querySelector("#app"));
+var totalSecs;
+
+window.onload = function() {
+	totalSecs = 0; // Initial time.
+	setInterval(click, 1000);
+};
+
+const click = () => {
+	totalSecs++;
+	ReactDOM.render(
+		<div>
+			<Home />
+			<SecondsCounter seconds={totalSecs} />
+		</div>,
+		document.querySelector("#app")
+	);
+};
