@@ -12,25 +12,4 @@ import "../styles/index.scss";
 import Home from "./component/home.jsx";
 import SecondsCounter from "./component/secondscounter.jsx";
 
-let totalSecs;
-let countDown = false;
-
-window.onload = function() {
-	totalSecs = 0; // Initial time.
-	setInterval(tik, 1000);
-};
-
-const tik = () => {
-	// tik every second.
-	totalSecs = !countDown
-		? totalSecs + 1
-		: totalSecs > 0
-		? totalSecs - 1
-		: totalSecs;
-	ReactDOM.render(
-		<div>
-			<SecondsCounter seconds={totalSecs} />
-		</div>,
-		document.querySelector("#app")
-	);
-};
+ReactDOM.render(<SecondsCounter />, document.querySelector("#app"));
