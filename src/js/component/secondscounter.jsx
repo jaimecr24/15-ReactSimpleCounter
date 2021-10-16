@@ -67,11 +67,11 @@ const SecondsCounter = () => {
 
 	// When user press button RESET.
 	const handleReset = () => {
-		if (!countUp && !countStop) {
-			// if counter is descending...
+		if (!countStop) {
+			// if counter is on
 			clearInterval(intervalRef.current);
-			intervalRef.current = setInterval(increaseCount, 1000);
 		}
+		intervalRef.current = setInterval(increaseCount, 1000);
 		setCount(() => 0);
 		setCountUp(() => true);
 		setCountStop(() => false);
