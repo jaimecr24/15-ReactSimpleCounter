@@ -35,16 +35,15 @@ const SecondsCounter = () => {
 	// When user press button CountDown
 	const handleCountDownClick = () => {
 		if (!countStop) {
-			// if counter are stoped we only change countUp
-			if (countUp) {
-				clearInterval(intervalRef.current);
-				intervalRef.current = setInterval(decreaseCount, 1000);
-			} else {
-				clearInterval(intervalRef.current);
-				intervalRef.current = setInterval(increaseCount, 1000);
-			}
+			// contador en marcha
+			clearInterval(intervalRef.current); // eliminamos el actual.
 		}
-		setCountUp(prev => !prev);
+		intervalRef.current = setInterval(
+			countUp ? decreaseCount : increaseCount,
+			1000
+		);
+		setCountStop(() => false);
+		setCountUp(prev => !prev); // invert the direction of counter.
 	};
 
 	// When user press button STOP.
@@ -68,12 +67,14 @@ const SecondsCounter = () => {
 
 	// When user press button RESET.
 	const handleReset = () => {
-		setCount(() => 0);
 		if (!countUp && !countStop) {
+			// if counter is descending...
 			clearInterval(intervalRef.current);
 			intervalRef.current = setInterval(increaseCount, 1000);
 		}
+		setCount(() => 0);
 		setCountUp(() => true);
+		setCountStop(() => false);
 	};
 
 	// Format number to string.
@@ -111,7 +112,7 @@ const SecondsCounter = () => {
 					className="col mx-1"
 					style={btnStyle}
 					onClick={handleCountDownClick}>
-					COUNTDOWN
+					COUNT DOWN / UP
 				</button>
 				<button
 					className="col mx-1"
@@ -122,14 +123,14 @@ const SecondsCounter = () => {
 				<button
 					className="col mx-1"
 					style={btnStyle}
-					onClick={handleReset}>
-					RESET
+					onClick={handleResume}>
+					RESUME
 				</button>
 				<button
 					className="col mx-1"
 					style={btnStyle}
-					onClick={handleResume}>
-					RESUME
+					onClick={handleReset}>
+					RESET
 				</button>
 			</div>
 		</div>
